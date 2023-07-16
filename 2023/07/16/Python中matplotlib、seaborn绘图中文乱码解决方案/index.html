@@ -14,7 +14,7 @@
 <meta property="og:description" content="在用python绘制图像时，有时候会出现中文在图上都变成了小方框，经过查资料，我找到了如下解决方案供参考：  12345678import matplotlib as mplimport matplotlib.pyplot as plt# Use Chineseplt.rcParams[&amp;#x27;font.sans-serif&amp;#x27;]&#x3D;[&amp;#x27;SimHei&amp;#x27;] #用来正常显">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-16T12:22:41.000Z">
-<meta property="article:modified_time" content="2023-07-16T12:35:43.773Z">
+<meta property="article:modified_time" content="2023-07-16T12:38:58.633Z">
 <meta property="article:author" content="psych0zzzj">
 <meta property="article:tag" content="cs">
 <meta name="twitter:card" content="summary">
@@ -108,7 +108,7 @@
 
 
 <p>无论是用<code>jieba</code>进行中文词云还是想在matplotlib或seaborn画出的图上用中文作为标题、坐标轴或者标注，这个都可以完美解决。</p>
-<p>*注意，我使用的是apple silicon的MacBook，&#x3D;&#x3D;可能一些地方不太相同&#x3D;&#x3D;比如字体’Simhei’，有的系统可能并非自带这个字体。如果想知道系统上都有什么字体，可以参照如下方法： *</p>
+<p><em>注意，我使用的是apple silicon的MacBook，&#x3D;&#x3D;可能一些地方不太相同&#x3D;&#x3D;比如字体’Simhei’，有的系统可能并非自带这个字体。如果想知道系统上都有什么字体，可以参照如下方法：</em></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> font_manager</span><br><span class="line"><span class="comment"># 去重</span></span><br><span class="line">font_set = &#123;f.name <span class="keyword">for</span> f <span class="keyword">in</span> font_manager.fontManager.ttflist&#125;</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> font_set:</span><br><span class="line">    <span class="built_in">print</span>(f)</span><br></pre></td></tr></table></figure>
 
 
@@ -118,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zzzzzzzzzzj.github.io/2023/07/16/Python%E4%B8%ADmatplotlib%E3%80%81seaborn%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" data-id="clk5f75kz00020n3b0lm81259" data-title="Python中matplotlib、seaborn绘图中文乱码解决方案" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://zzzzzzzzzzj.github.io/2023/07/16/Python%E4%B8%ADmatplotlib%E3%80%81seaborn%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" data-id="clk5fbaqh00001t3b5fzndtuj" data-title="Python中matplotlib、seaborn绘图中文乱码解决方案" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
