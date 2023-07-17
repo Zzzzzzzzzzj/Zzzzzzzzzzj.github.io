@@ -80,6 +80,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-解决warning问题影响输出观感的问题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/17/%E8%A7%A3%E5%86%B3warning%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E8%BE%93%E5%87%BA%E8%A7%82%E6%84%9F%E7%9A%84%E9%97%AE%E9%A2%98/" class="article-date">
+  <time class="dt-published" datetime="2023-07-17T14:21:30.000Z" itemprop="datePublished">2023-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/07/17/%E8%A7%A3%E5%86%B3warning%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E8%BE%93%E5%87%BA%E8%A7%82%E6%84%9F%E7%9A%84%E9%97%AE%E9%A2%98/">解决warning问题影响输出观感的问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>我在写一些与matplotlib或者机器学习相关的函数时，有时会出现一些讨厌的<code>userwarning</code>，而一般情况下它们并不会影响我代码的准确性，但是很影响我观察输出时候的体验。</p>
+<p><del>我感觉我写的没问题</del>，懒得去深究了</p>
+<blockquote>
+<p>其实就是偷个懒，有时候还是要看看是啥问题的，比如vector的shape出了点问题，没有进行合适的reshape什么的。</p>
+</blockquote>
+<p>我直接上代码（ps：真的是懒人专用，不要轻易使用）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">&quot;ignore&quot;</span>, category=UserWarning)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zzzzzzzzzzj.github.io/2023/07/17/%E8%A7%A3%E5%86%B3warning%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E8%BE%93%E5%87%BA%E8%A7%82%E6%84%9F%E7%9A%84%E9%97%AE%E9%A2%98/" data-id="clk6yonlr0000j13be3is4d47" data-title="解决warning问题影响输出观感的问题" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Python中matplotlib、seaborn绘图中文乱码解决方案" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/07/16/Python%E4%B8%ADmatplotlib%E3%80%81seaborn%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="article-date">
@@ -318,7 +366,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/myself/" rel="tag">myself</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/myself/" rel="tag">myself</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
     </div>
   </div>
 
@@ -328,7 +376,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/myself/" style="font-size: 10px;">myself</a>
+      <a href="/tags/myself/" style="font-size: 20px;">myself</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
     </div>
   </div>
 
@@ -350,6 +398,10 @@
       <ul>
         
           <li>
+            <a href="/2023/07/17/%E8%A7%A3%E5%86%B3warning%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E8%BE%93%E5%87%BA%E8%A7%82%E6%84%9F%E7%9A%84%E9%97%AE%E9%A2%98/">解决warning问题影响输出观感的问题</a>
+          </li>
+        
+          <li>
             <a href="/2023/07/16/Python%E4%B8%ADmatplotlib%E3%80%81seaborn%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">Python中matplotlib、seaborn绘图中文乱码解决方案</a>
           </li>
         
@@ -363,10 +415,6 @@
         
           <li>
             <a href="/2023/07/14/hello/">hello</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/14/hello-world/">Hello World</a>
           </li>
         
       </ul>
