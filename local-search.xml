@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>解决warning问题影响输出观感的问题</title>
+    <link href="/2023/07/17/%E8%A7%A3%E5%86%B3warning%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E8%BE%93%E5%87%BA%E8%A7%82%E6%84%9F%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <url>/2023/07/17/%E8%A7%A3%E5%86%B3warning%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E8%BE%93%E5%87%BA%E8%A7%82%E6%84%9F%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<p>我在写一些与matplotlib或者机器学习相关的函数时，有时会出现一些讨厌的<code>userwarning</code>，而一般情况下它们并不会影响我代码的准确性，但是很影响我观察输出时候的体验。</p><p><del>我感觉我写的没问题</del>，懒得去深究了</p><blockquote><p>其实就是偷个懒，有时候还是要看看是啥问题的，比如vector的shape出了点问题，没有进行合适的reshape什么的。</p></blockquote><p>我直接上代码（ps：真的是懒人专用，不要轻易使用）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">&quot;ignore&quot;</span>, category=UserWarning)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Python中matplotlib、seaborn绘图中文乱码解决方案</title>
+    <link href="/2023/07/16/Python%E4%B8%ADmatplotlib%E3%80%81seaborn%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <url>/2023/07/16/Python%E4%B8%ADmatplotlib%E3%80%81seaborn%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    
+    <content type="html"><![CDATA[<p>在用python绘制图像时，有时候会出现中文在图上都变成了小方框，经过查资料，我找到了如下解决方案供参考： </p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use Chinese</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>]=[<span class="string">&#x27;SimHei&#x27;</span>] <span class="comment">#用来正常显示中文标签</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>]=<span class="literal">False</span> <span class="comment">#用来正常显示负号</span></span><br><span class="line">mpl.rcParams[<span class="string">&#x27;font.family&#x27;</span>]=<span class="string">&#x27;Heiti TC&#x27;</span> <span class="comment"># 修改了全局变量</span></span><br><span class="line">mpl.rcParams[<span class="string">&#x27;font.size&#x27;</span>]=<span class="number">10</span> <span class="comment">#设置字体大小</span></span><br></pre></td></tr></table></figure><p>无论是用<code>jieba</code>进行中文词云还是想在matplotlib或seaborn画出的图上用中文作为标题、坐标轴或者标注，这个都可以完美解决。</p><p><em>注意，我使用的是apple silicon的MacBook， <code>可能一些地方不太相同</code> 比如字体’Simhei’，有的系统可能并非自带这个字体。如果想知道系统上都有什么字体，可以参照如下方法：</em></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> font_manager</span><br><span class="line"><span class="comment"># 去重</span></span><br><span class="line">font_set = &#123;f.name <span class="keyword">for</span> f <span class="keyword">in</span> font_manager.fontManager.ttflist&#125;</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> font_set:</span><br><span class="line">    <span class="built_in">print</span>(f)</span><br></pre></td></tr></table></figure><p>大概就是这样，留在博客上算是给自己做一个记录！</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>暑假计划</title>
+    <link href="/2023/07/15/%E6%9A%91%E5%81%87%E8%AE%A1%E5%88%92/"/>
+    <url>/2023/07/15/%E6%9A%91%E5%81%87%E8%AE%A1%E5%88%92/</url>
+    
+    <content type="html"><![CDATA[<p>想减肥，想旅游，想学习，想和朋友一起好好玩，当然，也不会忘了给老师搬砖！</p><p>加油加油！！！</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>myself</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>test</title>
+    <link href="/2023/07/15/test/"/>
+    <url>/2023/07/15/test/</url>
+    
+    <content type="html"><![CDATA[<p>今天啥也没干，就是善于休息！</p><p>补充一句，休息一下挺好的，喜欢休息，就要休息，幸福的生活就是每天吃饱了睡，睡饱了吃！</p><p><em>建好了我自己的博客还是有点开心的嘿嘿</em></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>myself</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>hello</title>
+    <link href="/2023/07/14/hello/"/>
+    <url>/2023/07/14/hello/</url>
+    
+    <content type="html"><![CDATA[<p>这是我按照教程搭建个人主页后写的第一篇博客！</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2023/07/14/hello-world/"/>
+    <url>/2023/07/14/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>
