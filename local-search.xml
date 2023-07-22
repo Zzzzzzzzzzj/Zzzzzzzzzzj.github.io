@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>k-means中利用elbow method确定k值</title>
+    <link href="/2023/07/22/k-means%E4%B8%AD%E5%88%A9%E7%94%A8elbow-method%E7%A1%AE%E5%AE%9Ak%E5%80%BC/"/>
+    <url>/2023/07/22/k-means%E4%B8%AD%E5%88%A9%E7%94%A8elbow-method%E7%A1%AE%E5%AE%9Ak%E5%80%BC/</url>
+    
+    <content type="html"><![CDATA[<p>K-means算法的K值<code>需要人为给出所需要聚类的类别数目k，那么k的选择对于结果影响很大</code>，通常k值的选择通常需要根据实际进行手动选择，当然，仅仅是手动选择感觉有点逊。</p><p>下面我将简要介绍一下利用”Elbow method”(手肘法则)选择k值的方法。</p><p>其实其原理很简单，就是通过设定不同的k值，然后画出每一个k值对应的损失。</p><p>然后找出“手肘”的位置，就是最佳的聚类数目k。</p><blockquote><h4 id="有个小疑问："><a href="#有个小疑问：" class="headerlink" title="有个小疑问："></a>有个小疑问：</h4><p>损失不应该是越小越好吗？</p><p>理论上来说这这样的，但是当我们把n个数据点聚成n个类别，此时损失为0，然而这并没有什么意义（个人感觉有点过拟合的意思了）</p><p>而手肘位置的损失下降速度比较快，也相当于在过拟合和损失之间进行了折中。</p></blockquote><p>下面我直接利用<code>yellowbrick</code>包进行k值的”Elbow method”选择</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.cluster <span class="hljs-keyword">import</span> KMeans<br><span class="hljs-keyword">from</span> yellowbrick.cluster <span class="hljs-keyword">import</span> SilhouetteVisualizer, InterclusterDistance, KElbowVisualizer<br><span class="hljs-keyword">from</span> yellowbrick.datasets.loaders <span class="hljs-keyword">import</span> load_nfl<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br>X, y = load_nfl()<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">利用elbow method也就是“手肘法则”选择k-means中的k值</span><br><span class="hljs-string">原理就是通过设定不同的k值，然后画出每一个k值对应的损失</span><br><span class="hljs-string">然后找出“手肘”的位置，就是最佳的聚类数目k。</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br>model = KMeans(random_state=<span class="hljs-number">4</span>)<br>visualizer = KElbowVisualizer(model, k=(<span class="hljs-number">2</span>,<span class="hljs-number">10</span>))<br>visualizer.fit(X)<br>visualizer.show()<br><br><span class="hljs-comment"># 使用最佳的k值(elbow_value_)进行k-means聚类</span><br>model = KMeans(n_clusters=visualizer.elbow_value_, random_state=<span class="hljs-number">4</span>)<br>model.fit(X)<br><br><span class="hljs-comment"># 可视化聚类结果</span><br>fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, figsize=(<span class="hljs-number">8</span>,<span class="hljs-number">8</span>))<br><br><br>sil_visualizer = SilhouetteVisualizer(model, colors=<span class="hljs-string">&#x27;yellowbrick&#x27;</span>, ax=ax[<span class="hljs-number">0</span>])<br>sil_visualizer.fit(X)<br>sil_visualizer.finalize()<br><br><br>icd_visualizer = InterclusterDistance(model, ax=ax[<span class="hljs-number">1</span>])<br>icd_visualizer.fit(X)<br>icd_visualizer.finalize()<br><br><span class="hljs-comment"># 保存图片</span><br>plt.savefig(<span class="hljs-string">&quot;kmeans_visualization.png&quot;</span>)<br></code></pre></td></tr></table></figure><p>![image-20230722211617719](&#x2F;Users&#x2F;zhangjue&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230722211617719.png)</p><p>如图所示，自动选择出来的k值为4</p><p>参考：<a href="https://www.zhihu.com/question/279825061/answer/1686762604">https://www.zhihu.com/question/279825061/answer/1686762604</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>python, machine-learning</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>解决warning问题影响输出观感的问题</title>
     <link href="/2023/07/17/%E8%A7%A3%E5%86%B3warning%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E8%BE%93%E5%87%BA%E8%A7%82%E6%84%9F%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <url>/2023/07/17/%E8%A7%A3%E5%86%B3warning%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E8%BE%93%E5%87%BA%E8%A7%82%E6%84%9F%E7%9A%84%E9%97%AE%E9%A2%98/</url>

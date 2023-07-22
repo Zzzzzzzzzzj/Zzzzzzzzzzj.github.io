@@ -16,24 +16,24 @@
   <meta name="author" content="psych0zzzj">
   <meta name="keywords" content="cs">
   
-    <meta name="description" content="我在写一些与matplotlib或者机器学习相关的函数时，有时会出现一些讨厌的userwarning，而一般情况下它们并不会影响我代码的准确性，但是很影响我观察输出时候的体验。 我感觉我写的没问题，懒得去深究了  其实就是偷个懒，有时候还是要看看是啥问题的，比如vector的shape出了点问题，没有进行合适的reshape什么的。  我直接上代码（ps：真的是懒人专用，不要轻易使用） 12imp">
+    <meta name="description" content="K-means算法的K值需要人为给出所需要聚类的类别数目k，那么k的选择对于结果影响很大，通常k值的选择通常需要根据实际进行手动选择，当然，仅仅是手动选择感觉有点逊。 下面我将简要介绍一下利用”Elbow method”(手肘法则)选择k值的方法。 其实其原理很简单，就是通过设定不同的k值，然后画出每一个k值对应的损失。 然后找出“手肘”的位置，就是最佳的聚类数目k。  有个小疑问：损失不应该是越">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决warning问题影响输出观感的问题">
-<meta property="og:url" content="http://zzzzzzzzzzj.github.io/2023/07/17/%E8%A7%A3%E5%86%B3warning%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E8%BE%93%E5%87%BA%E8%A7%82%E6%84%9F%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="k-means中利用elbow method确定k值">
+<meta property="og:url" content="http://zzzzzzzzzzj.github.io/2023/07/22/k-means%E4%B8%AD%E5%88%A9%E7%94%A8elbow-method%E7%A1%AE%E5%AE%9Ak%E5%80%BC/index.html">
 <meta property="og:site_name" content="Psych0zzzj">
-<meta property="og:description" content="我在写一些与matplotlib或者机器学习相关的函数时，有时会出现一些讨厌的userwarning，而一般情况下它们并不会影响我代码的准确性，但是很影响我观察输出时候的体验。 我感觉我写的没问题，懒得去深究了  其实就是偷个懒，有时候还是要看看是啥问题的，比如vector的shape出了点问题，没有进行合适的reshape什么的。  我直接上代码（ps：真的是懒人专用，不要轻易使用） 12imp">
+<meta property="og:description" content="K-means算法的K值需要人为给出所需要聚类的类别数目k，那么k的选择对于结果影响很大，通常k值的选择通常需要根据实际进行手动选择，当然，仅仅是手动选择感觉有点逊。 下面我将简要介绍一下利用”Elbow method”(手肘法则)选择k值的方法。 其实其原理很简单，就是通过设定不同的k值，然后画出每一个k值对应的损失。 然后找出“手肘”的位置，就是最佳的聚类数目k。  有个小疑问：损失不应该是越">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-07-17T14:21:30.000Z">
-<meta property="article:modified_time" content="2023-07-17T14:28:56.701Z">
+<meta property="article:published_time" content="2023-07-22T13:08:38.000Z">
+<meta property="article:modified_time" content="2023-07-22T13:24:26.939Z">
 <meta property="article:author" content="psych0zzzj">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="python, machine-learning">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>解决warning问题影响输出观感的问题 - Psych0zzzj</title>
+  <title>k-means中利用elbow method确定k值 - Psych0zzzj</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="解决warning问题影响输出观感的问题"></span>
+            <span id="subtitle" data-typed-text="k-means中利用elbow method确定k值"></span>
           
         </div>
 
@@ -210,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-07-17 22:21" pubdate>
-          2023年7月17日 晚上
+        <time datetime="2023-07-22 21:08" pubdate>
+          2023年7月22日 晚上
         </time>
       </span>
     
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          269 字
+          1.5k 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          3 分钟
+          13 分钟
         
       </span>
     
@@ -278,19 +278,26 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">解决warning问题影响输出观感的问题</h1>
+            <h1 id="seo-header">k-means中利用elbow method确定k值</h1>
             
             
               <div class="markdown-body">
                 
-                <p>我在写一些与matplotlib或者机器学习相关的函数时，有时会出现一些讨厌的<code>userwarning</code>，而一般情况下它们并不会影响我代码的准确性，但是很影响我观察输出时候的体验。</p>
-<p><del>我感觉我写的没问题</del>，懒得去深究了</p>
+                <p>K-means算法的K值<code>需要人为给出所需要聚类的类别数目k，那么k的选择对于结果影响很大</code>，通常k值的选择通常需要根据实际进行手动选择，当然，仅仅是手动选择感觉有点逊。</p>
+<p>下面我将简要介绍一下利用”Elbow method”(手肘法则)选择k值的方法。</p>
+<p>其实其原理很简单，就是通过设定不同的k值，然后画出每一个k值对应的损失。</p>
+<p>然后找出“手肘”的位置，就是最佳的聚类数目k。</p>
 <blockquote>
-<p>其实就是偷个懒，有时候还是要看看是啥问题的，比如vector的shape出了点问题，没有进行合适的reshape什么的。</p>
+<h4 id="有个小疑问："><a href="#有个小疑问：" class="headerlink" title="有个小疑问："></a>有个小疑问：</h4><p>损失不应该是越小越好吗？</p>
+<p>理论上来说这这样的，但是当我们把n个数据点聚成n个类别，此时损失为0，然而这并没有什么意义（个人感觉有点过拟合的意思了）</p>
+<p>而手肘位置的损失下降速度比较快，也相当于在过拟合和损失之间进行了折中。</p>
 </blockquote>
-<p>我直接上代码（ps：真的是懒人专用，不要轻易使用）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">&quot;ignore&quot;</span>, category=UserWarning)</span><br></pre></td></tr></table></figure>
+<p>下面我直接利用<code>yellowbrick</code>包进行k值的”Elbow method”选择</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.cluster <span class="hljs-keyword">import</span> KMeans<br><span class="hljs-keyword">from</span> yellowbrick.cluster <span class="hljs-keyword">import</span> SilhouetteVisualizer, InterclusterDistance, KElbowVisualizer<br><span class="hljs-keyword">from</span> yellowbrick.datasets.loaders <span class="hljs-keyword">import</span> load_nfl<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br>X, y = load_nfl()<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">利用elbow method也就是“手肘法则”选择k-means中的k值</span><br><span class="hljs-string">原理就是通过设定不同的k值，然后画出每一个k值对应的损失</span><br><span class="hljs-string">然后找出“手肘”的位置，就是最佳的聚类数目k。</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br>model = KMeans(random_state=<span class="hljs-number">4</span>)<br>visualizer = KElbowVisualizer(model, k=(<span class="hljs-number">2</span>,<span class="hljs-number">10</span>))<br>visualizer.fit(X)<br>visualizer.show()<br><br><span class="hljs-comment"># 使用最佳的k值(elbow_value_)进行k-means聚类</span><br>model = KMeans(n_clusters=visualizer.elbow_value_, random_state=<span class="hljs-number">4</span>)<br>model.fit(X)<br><br><span class="hljs-comment"># 可视化聚类结果</span><br>fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, figsize=(<span class="hljs-number">8</span>,<span class="hljs-number">8</span>))<br><br><br>sil_visualizer = SilhouetteVisualizer(model, colors=<span class="hljs-string">&#x27;yellowbrick&#x27;</span>, ax=ax[<span class="hljs-number">0</span>])<br>sil_visualizer.fit(X)<br>sil_visualizer.finalize()<br><br><br>icd_visualizer = InterclusterDistance(model, ax=ax[<span class="hljs-number">1</span>])<br>icd_visualizer.fit(X)<br>icd_visualizer.finalize()<br><br><span class="hljs-comment"># 保存图片</span><br>plt.savefig(<span class="hljs-string">&quot;kmeans_visualization.png&quot;</span>)<br></code></pre></td></tr></table></figure>
 
+<p>![image-20230722211617719](&#x2F;Users&#x2F;zhangjue&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230722211617719.png)</p>
+<p>如图所示，自动选择出来的k值为4</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/279825061/answer/1686762604">https://www.zhihu.com/question/279825061/answer/1686762604</a></p>
 
                 
               </div>
@@ -303,7 +310,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/python/" class="print-no-link">#python</a>
+        <a href="/tags/python-machine-learning/" class="print-no-link">#python, machine-learning</a>
       
     </div>
   
@@ -315,8 +322,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>解决warning问题影响输出观感的问题</div>
-      <div>http://zzzzzzzzzzj.github.io/2023/07/17/解决warning问题影响输出观感的问题/</div>
+      <div>k-means中利用elbow method确定k值</div>
+      <div>http://zzzzzzzzzzj.github.io/2023/07/22/k-means中利用elbow-method确定k值/</div>
     </div>
     <div class="license-meta">
       
@@ -328,7 +335,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年7月17日</div>
+          <div>2023年7月22日</div>
         </div>
       
       
@@ -360,18 +367,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/07/22/k-means%E4%B8%AD%E5%88%A9%E7%94%A8elbow-method%E7%A1%AE%E5%AE%9Ak%E5%80%BC/" title="k-means中利用elbow method确定k值">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">k-means中利用elbow method确定k值</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/07/16/Python%E4%B8%ADmatplotlib%E3%80%81seaborn%E7%BB%98%E5%9B%BE%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="Python中matplotlib、seaborn绘图中文乱码解决方案">
-                        <span class="hidden-mobile">Python中matplotlib、seaborn绘图中文乱码解决方案</span>
+                      <a href="/2023/07/17/%E8%A7%A3%E5%86%B3warning%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E8%BE%93%E5%87%BA%E8%A7%82%E6%84%9F%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决warning问题影响输出观感的问题">
+                        <span class="hidden-mobile">解决warning问题影响输出观感的问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
